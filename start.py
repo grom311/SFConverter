@@ -11,6 +11,7 @@ FORMATS = ['jpg', 'webp', 'bmp']
 SRC_EXTENTIONS = {
     'jpg': ['jpg', 'jpeg', 'jfif'],
     'heic': ['heic'],
+    'png': ['png'],
 }
 
 class MyTool(QtWidgets.QMainWindow):
