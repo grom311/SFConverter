@@ -14,6 +14,7 @@ SRC_EXTENTIONS = {
     'png': ['png'],
 }
 
+
 class MyTool(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
         super().__init__()
@@ -83,7 +84,10 @@ class MyTool(QtWidgets.QMainWindow):
             )
             t.start()
             t.join()
-            QtWidgets.QMessageBox.about(self, "Result convert", f'Count convert files: {self.res_convert["count"]}')
+            QtWidgets.QMessageBox.about(self,
+                "Result convert",
+                f'Count convert files: {self.res_convert["count"]}',
+            )
         else:
             QtWidgets.QMessageBox.about(self, "Options not correct", "Please insert all options")
         self.ui.pushButton.setEnabled(True)
@@ -122,6 +126,7 @@ def resource_path(relative):
         return os.path.join(sys._MEIPASS, relative)
     else:
         return os.path.join(os.path.abspath("."), relative)
+
 
 if __name__ == "__main__":
     import sys

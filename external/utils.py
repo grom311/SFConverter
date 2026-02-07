@@ -6,6 +6,7 @@ from typing import Optional
 from PIL import Image
 from pillow_heif import register_heif_opener
 import logging
+import platform
 
 # RESIZE = (1500, 2250)  # нада размеры как то подбирать - так не пойдет
 # QUALITY = 10
@@ -109,7 +110,7 @@ class Convert:
             res_file = os.path.normpath(f'{self._save_path}/{path_repl[:-len_suffix]}.{ext}')
         os.makedirs(os.path.dirname(res_file), exist_ok=True)
         return res_file
-    
+
     def paths(self, inp_formats: list[str]):
         """Generate list[paths] and return method."""
         _path = Path(self._path)
@@ -123,10 +124,12 @@ class Convert:
                 paths.extend(_path.glob(f"**/*.{frm}"))
         return paths
 
-    def open_image(self, source: Path) -> Optional[Image]: # type: ignore
+    def open_image(self, source: Path) -> Optional[Image]:  # type: ignore
         """"""
         try:
             image = Image.open(source)
+            if source.suffix.lower() == '.png' and platform.system() == 'Windows':
+                image = image.convert('RGB')
             return image
         except Exception as exc:
             logging.exception(f'Error: {exc}')
